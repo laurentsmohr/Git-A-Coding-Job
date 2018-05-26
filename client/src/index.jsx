@@ -21,7 +21,6 @@ class App extends React.Component {
     this.handleServerResponse = this.handleServerResponse.bind(this);
     this.saveJob = this.saveJob.bind(this);
     this.nextJob = this.nextJob.bind(this);
-    //this.newSearch = this.newSearch.bind(this);
     this.deleteListEntry = this.deleteListEntry.bind(this);
   }
   
@@ -73,12 +72,6 @@ class App extends React.Component {
       jobIndex: i
     })
   }
-
-  // newSearch() {
-  //   this.setState({
-  //     jobs: []
-  //   })
-  // }
   
   deleteListEntry(index) {
     var savedJobsArray = this.state.savedJobs;
