@@ -1,5 +1,3 @@
-CREATE DATABASE git_jobs;
-
 USE git_jobs;
 
 
@@ -10,11 +8,11 @@ CREATE TABLE users (
 );
 
 CREATE TABLE saved_jobs (
-  id SMALLINT NOT NULL AUTO_INCREMENT,
+  id INT NOT NULL AUTO_INCREMENT,
   title VARCHAR(100) NOT NULL,
   company VARCHAR(100),
   type VARCHAR(100),
-  description TEXT
+  description TEXT,
   PRIMARY KEY (id)
 );
 

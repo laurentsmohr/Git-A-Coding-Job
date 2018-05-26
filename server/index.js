@@ -1,6 +1,7 @@
 var searchGithub = require('./lib/searchGithub.js');
 var express = require('express');
 var bodyParser = require('body-parser');
+var db = require('./database/index.js');
 // UNCOMMENT THE DATABASE YOU'D LIKE TO USE
 // var items = require('../database-mysql');
 // var items = require('../database-mongo');
