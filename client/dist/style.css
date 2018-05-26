@@ -1,0 +1,48 @@
+body {
+	background-color: #00A5C7;
+	margin: 0;
+}
+
+#header {
+	position: relative;
+	background-color: white;
+	width: 100%;
+	border-top-color: #eee;
+  	border-bottom-color: #bbb;
+  	margin-bottom: 5px
+}
+
+img {
+	display: block;
+	margin: 0 auto;
+}
+
+#app {
+	margin: auto;
+	width: 50%;
+	border: 3px lightgray;
+	padding: 10px;
+	border-radius: 10px;
+}
+nav {
+	margin: auto;
+	width: 50%;
+}
+form {
+	margin: auto;
+	width: 50%;
+}
+
+input {
+ width: 40%;
+ padding: 5px 10px;
+ margin: 5px 0;
+}
+
+button {
+	margin: 5px 10px;
+}
+
+#fullTimeCheckbox {
+	width: 20px;
+}
