@@ -1,13 +1,11 @@
 var mysql = require('mysql');
 var config = require('../config.js')
 
-console.log(config);
 var connection = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: config.pw,
-  database: 'git_jobs',
-  insecureAuth : true
+  host: process.env.DATABASE_HOST || '127.0.0.1',
+  user: process.env.DATABASE_USER || 'root',
+  password: process.env.DATABASE_PW || config.pw,
+  database: process.env.DATABASE_NAME || 'git_jobs'
 });
 
 connection.connect(err => {

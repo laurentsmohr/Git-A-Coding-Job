@@ -1,5 +1,4 @@
-USE git_jobs;
-
+USE heroku_64557f9f8ac1154;
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
@@ -25,10 +24,4 @@ CREATE TABLE users_savedjobs (
 );
 
 
-
-
-
-/*  Execute this file from the command line by typing:
- *    mysql -u root < server/schema.sql
- *  to create the database and the tables.*/
 
