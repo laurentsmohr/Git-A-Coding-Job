@@ -19,6 +19,9 @@ app.post('/search', function (req, res) {
   })
 });
 
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
+console.log('logging port: ', process.env.PORT);
+var port = process.env.PORT || 3000;
+
+app.listen(port, function() {
+  console.log(`listening on port ${port}!`);
 });

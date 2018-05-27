@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
 
 connection.connect(err => {
   if (err) {
-    console.log('Error connecting to gitjobs: ', err);
+    console.log('Error connecting to git_jobs: ', err);
   } else {
       console.log('Connected to gitjobs!');
   }
