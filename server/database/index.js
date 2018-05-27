@@ -1,6 +1,9 @@
 var mysql = require('mysql');
 //var config = require('../config.js')
-
+console.log('host: ', process.env.DATABASE_HOST);
+console.log('user: ', process.env.DATABASE_USER);
+console.log('pw: ', process.env.DATABASE_PW);
+console.log('db: ', process.env.DATABASE_NAME);
 var connection = mysql.createConnection({
   host: process.env.DATABASE_HOST || '127.0.0.1',
   user: process.env.DATABASE_USER || 'root',
