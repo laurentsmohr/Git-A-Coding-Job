@@ -4,6 +4,8 @@ import axios from 'axios';
 import Search from './Components/Search.jsx';
 import SavedList from './Components/SavedList.jsx';
 import Show from './Components/Show.jsx';
+import Login from './Components/Login.jsx';
+import Signup from './Components/Signup.jsx';
 
 
 class App extends React.Component {
@@ -14,15 +16,19 @@ class App extends React.Component {
       currentJob: {},
       jobIndex: 0,
       viewSaved: false,
-      savedJobs: []
+      savedJobs: [],
+      user: "",
+      authentication: "login",
     }
     this.clickSearch = this.clickSearch.bind(this);
     this.clickSaved = this.clickSaved.bind(this);
     this.handleServerResponse = this.handleServerResponse.bind(this);
     this.saveJob = this.saveJob.bind(this);
     this.nextJob = this.nextJob.bind(this);
-    //this.newSearch = this.newSearch.bind(this);
     this.deleteListEntry = this.deleteListEntry.bind(this);
+    this.switchToLogin = this.switchToLogin.bind(this);
+    this.switchToSignup = this.switchToSignup.bind(this);
+    this.loggedIn = this.loggedIn.bind(this);
   }
   
   clickSearch(e) {
@@ -54,11 +60,21 @@ class App extends React.Component {
   }
 
   saveJob() {
-    var saved = this.state.savedJobs;
-    saved.push(this.state.currentJob);
-    this.setState({
-      savedJobs: saved
+    this.setState((prevState) => {
+      prevState.savedJobs.push(this.state.currentJob);
+      return {savedJobs: prevState.savedJobs};
+    });
+    
+    axios.post('/save', {
+      job: this.state.currentJob,
+      user: this.state.user
     })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   nextJob() {
@@ -73,12 +89,6 @@ class App extends React.Component {
       jobIndex: i
     })
   }
-
-  // newSearch() {
-  //   this.setState({
-  //     jobs: []
-  //   })
-  // }
   
   deleteListEntry(index) {
     var savedJobsArray = this.state.savedJobs;
@@ -86,6 +96,32 @@ class App extends React.Component {
     this.setState({
       savedJobs: savedJobsArray
     })
+  }
+
+  loggedIn(userID) {
+    console.log('loggedIn', userID);
+    this.setState({
+      user: userID,
+      authentication: 'authenticated'
+    })
+    axios.get(`/${userID}/savedJobs`)
+    .then(res => {
+      console.log('users jobs: ', res);
+      this.setState({
+        savedJobs: res.data
+      })
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }
+
+  switchToSignup() {
+    this.setState({authentication: 'signup'})
+  }
+
+  switchToLogin() {
+    this.setState({authentication: 'login'})
   }
 
   renderContent() {
@@ -99,15 +135,21 @@ class App extends React.Component {
   }
 
   render () {
-    return (
-    <div className="outer-wrapper">
-      <nav style={{margin: "0 0 15px 0" }}>
-        <button className="button" style={{width: "250px"}} onClick={this.clickSearch}>Search</button>
-        <button className="button" style={{width: "250px", float: "right", position: "relative"}} onClick={this.clickSaved}>Saved</button>
-      </nav>
-      {this.renderContent()}
-    </div>
-    )
+    if(this.state.authentication === 'login') {
+      return <Login loggedIn={this.loggedIn} switchToSignup={this.switchToSignup}/>;
+    } else if (this.state.authentication === 'signup') {
+      return <Signup loggedIn={this.loggedIn} switchToLogin={this.switchToLogin}/>
+    } else {
+      return (
+        <div className="outer-wrapper">
+          <nav style={{margin: "0 0 15px 0" }}>
+            <button className="button" style={{width: "250px"}} onClick={this.clickSearch}>Search</button>
+            <button className="button" style={{width: "250px", float: "right", position: "relative"}} onClick={this.clickSaved}>Saved</button>
+          </nav>
+          {this.renderContent()}
+        </div>
+      )
+    }
   }
 }
 
