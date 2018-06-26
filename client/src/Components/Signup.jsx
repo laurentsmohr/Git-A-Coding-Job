@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-class Login extends React.Component { 
+class Signup extends React.Component { 
   constructor(props) {
     super(props);
     this.state = {
@@ -13,30 +13,24 @@ class Login extends React.Component {
     this.toggleDisplay = this.toggleDisplay.bind(this);
   }
 
-  componentDidUpdate() {
-    document.getElementById('invalidUsername').style.display = 'none';
-    document.getElementById('invalidPassword').style.display = 'none';
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-    axios.post('loginUser', {
-      username: this.state.username, 
+    axios.post('/signupUser', {
+      username: this.state.username,
       password: this.state.password
     })
     .then(res => {
-      console.log(res);
       if (typeof res.data === 'string') {
         this.toggleDisplay(res.data);
       } else {
-        this.props.loggedIn(res.data.id);
+        this.props.loggedIn(res.data.insertId);
       }
     })
     .catch(err => {
-      console.error(err);
+      console.error(err)
     })
   }
-  
+
   toggleDisplay(id) {
     if(document.getElementById(id).style.display === 'none') {
       document.getElementById(id).style.display = 'block';
@@ -57,15 +51,14 @@ class Login extends React.Component {
   render () {
       return (
         <div className='content'>
-          <p className='title'>Login</p>
+        <p className='title'>Create Account</p>
           <form onSubmit={this.handleSubmit} className="search-bar form-inline">
               <div className="field">
                 <label className="label">Username</label>
                 <div className="control">
                   <input className="input" id="usernameInput" type="text" value={this.state.username} placeholder="Enter your username" onChange={this.handleChange}/>
                 </div>
-                <p className='help is-danger' id='invalidUsername' style={{display: 'none'}}>The username does not exist</p>
-                <p className='help is-danger' id='invalidPassword' style={{display: 'none'}}>Invalid Credentials</p>
+                <p className='help is-danger' id='usernameTaken' style={{display: 'none'}}>The username already exist</p>
               </div>
               <div className="field">
                 <label className="label">Password</label>
@@ -75,15 +68,15 @@ class Login extends React.Component {
               </div>
               <div className="field">
                 <div className="control">
-                  <button className="button is-link" type="submit">Log In</button>
+                  <button className="button is-link" type="submit">Create Account</button>
                 </div>
               </div>
-              <div onClick={this.props.switchToSignup}>
-                <p style={{cursor: 'pointer'}}>Create an Account</p>
+              <div onClick={this.props.switchToLogin}>
+                <p style={{cursor: 'pointer'}}>Login to your Account</p>
               </div> 
             </form> 
         </div>
       )
   }
 }
-export default Login;
+export default Signup;

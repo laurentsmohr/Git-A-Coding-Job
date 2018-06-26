@@ -47,6 +47,7 @@ class Search extends React.Component {
     }
     axios.post('/search', {params})
     .then(response => {
+      console.log(response.data);
       this.props.handleServerResponse(response.data);
     })
     .catch(err => {
