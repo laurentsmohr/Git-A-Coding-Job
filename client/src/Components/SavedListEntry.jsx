@@ -6,7 +6,7 @@ class SavedListEntry extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     }
   handleDelete() {
-    this.props.deleteJob(this.props.job.key);
+    this.props.deleteJob(this.props.job.key, this.props.job.id);
   } 
 
   render() {

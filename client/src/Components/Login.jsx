@@ -25,7 +25,6 @@ class Login extends React.Component {
       password: this.state.password
     })
     .then(res => {
-      console.log(res);
       if (typeof res.data === 'string') {
         this.toggleDisplay(res.data);
       } else {

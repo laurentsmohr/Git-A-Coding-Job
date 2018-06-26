@@ -28,7 +28,6 @@ app.post('/loginUser', function(req, res) {
       console.error(err);
       res.status(400).send(err);
     } else {
-      console.log(result);
       if (result.length === 0) {
         res.send('invalidUsername');
       } else {
@@ -56,7 +55,6 @@ app.post('/signupUser', function(req, res) {
             console.error(err);
             res.status(400).send(err);
           } else {
-            console.log('saved', result);
             res.status(200).send(result);
           }
         });
@@ -86,7 +84,6 @@ app.post('/save', function(req, res) {
           console.error(err);
           res.status(400).send(err);
         } else {
-          console.log('saved ', saved);
           res.status(200).send(`Saved Job ${job.title}, to ${userId}`)
         }
       })
@@ -101,11 +98,21 @@ app.get('/:userId/savedJobs', function(req, res) {
       console.error(err);
       res.status(400).send(err);
     } else {
-      console.log(result);
       res.status(200).send(result)
     }
   }) 
+})
 
+app.delete('/:userId/:jobId', function(req, res) {
+  let queryStr ='DELETE FROM users_savedjobs WHERE user_id=(?) AND saved_jobs_id=(?)'
+  db.query(queryStr, [req.params.userId,req.params.jobId], function(err, result) {
+    if (err) {
+      console.error(err);
+      res.status(400).send(err);
+    } else {
+      res.status(200).send(result)
+    }
+  }) 
 })
 
 var port = process.env.PORT || 3000;

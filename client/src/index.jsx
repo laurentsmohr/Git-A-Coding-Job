@@ -69,9 +69,6 @@ class App extends React.Component {
       job: this.state.currentJob,
       user: this.state.user
     })
-    .then(function (response) {
-      console.log(response);
-    })
     .catch(function (error) {
       console.log(error);
     });
@@ -90,23 +87,25 @@ class App extends React.Component {
     })
   }
   
-  deleteListEntry(index) {
+  deleteListEntry(index, jobId) {
     var savedJobsArray = this.state.savedJobs;
     savedJobsArray.splice(index, 1);
     this.setState({
       savedJobs: savedJobsArray
     })
+    axios.delete(`/${this.state.user}/${jobId}`)
+    .catch(err => {
+      console.error(err);
+    })
   }
 
   loggedIn(userID) {
-    console.log('loggedIn', userID);
     this.setState({
       user: userID,
       authentication: 'authenticated'
     })
     axios.get(`/${userID}/savedJobs`)
     .then(res => {
-      console.log('users jobs: ', res);
       this.setState({
         savedJobs: res.data
       })
