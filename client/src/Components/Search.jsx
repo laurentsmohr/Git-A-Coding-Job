@@ -47,8 +47,15 @@ class Search extends React.Component {
     }
     axios.post('/search', {params})
     .then(response => {
-      console.log(response.data);
-      this.props.handleServerResponse(response.data);
+      if(response.data.length === 0) {
+        let doc = document.getElementById('noSearchResults');
+        doc.style.display = 'block';
+        setTimeout(() => {
+          doc.style.display = 'none';
+        }, 2000);
+      } else {
+        this.props.handleServerResponse(response.data);
+      }
     })
     .catch(err => {
       console.error(err);
@@ -82,6 +89,7 @@ class Search extends React.Component {
           <div className="control">
             <button className="button is-link" type="submit" >Submit</button>
           </div>
+          <p className='help is-danger' id='noSearchResults' style={{display: 'none', textAlign: 'center', marginTop: '10px' }}>The keywords match no results. Try broadening your search.</p>
         </div>
       </form> 
     ); 

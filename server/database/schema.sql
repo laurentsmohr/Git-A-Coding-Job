@@ -1,4 +1,4 @@
-USE heroku_64557f9f8ac1154;
+USE heroku_9df31bbf76f2ea7;
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
