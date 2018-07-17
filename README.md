@@ -8,6 +8,8 @@ Git a coding job is a fullstack application that lets you browse for jobs on job
 2. Run npm install
 3. Add your mySQL database credentials to example.config.js
 4. Set up the schema for your database with server/database/schema.sql
+5. run npm-start
+
 
 ### Prerequisites
 
